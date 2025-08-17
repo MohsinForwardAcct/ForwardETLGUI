@@ -11,8 +11,8 @@ class ConnectToODSServer():
 
         self.ODSServer = 'fim-prod-analytics-vm.database.windows.net,1433' #os.getenv("ODSServer")
         self.ODSDatabase = 'ForwardsODS' #os.getenv("ODSDatabase")
-        self.ODSUser = 'fletapp-user' #os.getenv("ODSUser")
-        self.ODSPassword = 'Str0ngP@ss!ANLY25$Secure' #os.getenv("ODSPassword")
+        self.ODSUser = 'm_ahmed' #os.getenv("ODSUser")
+        self.ODSPassword = 'P@ssw0rd!23Ahm' #os.getenv("ODSPassword")
         Driver ='ODBC Driver 17 for SQL Server'
         self.ODSConnectionString = f'Driver={Driver};Server={self.ODSServer};Database={self.ODSDatabase};UID={self.ODSUser};PWD={self.ODSPassword};Connect Timeout=90;'
         # print(self.ODSConnectionString); input()
@@ -42,8 +42,8 @@ class ConnectToETLServer():
         Driver ='ODBC Driver 18 for SQL Server'
         self.ETLServer = 'fim-prod-analytics-vm.database.windows.net,1433' #os.getenv("ETLServer")
         self.ETLDatabase = 'ForwardsETL' #os.getenv("ETLDatabase")
-        self.ETLUser = 'fletapp-user' #os.getenv("ETLUser")
-        self.ETLPassword = 'Str0ngP@ss!ANLY25$Secure' #os.getenv("ETLPassword")
+        self.ETLUser = 'm_ahmed' #os.getenv("ETLUser")
+        self.ETLPassword = 'P@ssw0rd!23Ahm' #os.getenv("ETLPassword")
         self.ETLConnectionString = fr'Driver={Driver};Server={self.ETLServer};Database={self.ETLDatabase};UID={self.ETLUser};PWD={self.ETLPassword};Connect Timeout=90;'
         self.ETLConnection = URL.create("mssql+pyodbc", query={"odbc_connect": self.ETLConnectionString})
         self.engineETL = create_engine(self.ETLConnection, use_setinputsizes = False, echo = False)
@@ -84,4 +84,5 @@ class LoadDataToODS():
             Cursor = ConnectToODSServer().ODSConnection.cursor()
             Cursor.execute(qryLoadData); Cursor.commit()
             ConnectToODSServer().ODSConnection.close()
+
 
