@@ -101,7 +101,7 @@ class LandingPage(Container):
 
     async def GetAlertMessageAction(self,e):
         self.HomeScreen.controls.clear()
-        self.HomeScreen.controls.append(GLS.LoginScreen(self.page).LoginScreen)
+        self.HomeScreen.controls.append(GLS.LoginScreen(self.page, , self.Download).LoginScreen)
         await self.HomeScreen.page.close_dialog_async()
         await self.HomeScreen.page.update_async()
         
