@@ -73,6 +73,7 @@ class LandingPage(Container):
         elif LabelName == "Bordereaux": MainScreen = self.GetMainScreen(Brdx.Bordereaux(self.page, self.Download).ReportingScreen); await self.UpdateScreen(MainScreen)
         elif LabelName == "UserList": MainScreen = self.GetMainScreen(GVL.GUIVariableList(self.page, 'ETLUserData').ReportingScreen); await self.UpdateScreen(MainScreen)     
         elif LabelName == "System Logs": MainScreen = self.GetMainScreen(Column(controls=[self.GetDevelopment()])); await self.UpdateScreen(MainScreen) 
+        elif LabelName == "Validation": MainScreen = self.GetMainScreen(Column(controls=[self.GetDevelopment()])); await self.UpdateScreen(MainScreen) 
         elif LabelName == "Administrator": MainScreen = self.GetMainScreen(Column(controls=[self.GetDevelopment()])); await self.UpdateScreen(MainScreen) 
         elif LabelName == "Logout": await self.GetBackLoginScreen()
     
