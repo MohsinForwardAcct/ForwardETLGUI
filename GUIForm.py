@@ -20,7 +20,6 @@ class FormScreen(Container):
 
         self.page = page
         self.Download = download
-        self.user = os.getlogin()
         self.ODS = CS.ConnectToODSServer()
         self.ColumnNames = []; self.RowsData = []; self.RowValues = ''
         self.Query = Query; self.ScreenName = ScreenName; self.ReportTitle = ReportTitle; self.ColumnSelect = ScreenName
