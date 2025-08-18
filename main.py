@@ -47,8 +47,8 @@ async def main(page: Page):
         await page.launch_url_async(url='/download', web_window_name='_self')
 
     page.theme_mode = "dark"
-    #await page.add_async(GLS.LoginScreen(page, download_file).LoginScreen)
-    await page.add_async(GLP.LandingPage(page, download_file).HomeScreen)
+    await page.add_async(GLS.LoginScreen(page, download_file).LoginScreen)
+    #await page.add_async(GLP.LandingPage(page, download_file).HomeScreen)
     await page.update_async()
 
 app.mount("/", flet_fastapi.app(main))
