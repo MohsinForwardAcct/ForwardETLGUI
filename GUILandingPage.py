@@ -50,6 +50,12 @@ class LandingPage(Container):
         self.MainInterFace.content.controls.append(MainScreen)
         await self.page.update_async()
 
+    # pages work in progress
+
+    def GetDevelopment(self):
+        DevelpmentPage = Container(expand= True, bgcolor=colors.BLACK, content=Text('Page under development',text_align='center',size=150))
+        return DevelpmentPage
+
     # main screen view
 
     def GetMainScreen(self, Content):
@@ -66,8 +72,8 @@ class LandingPage(Container):
         elif LabelName == "Logic Tables": MainScreen = self.GetMainScreen(LT.LogicTables(self.page, self.Download).ReportingScreen); await self.UpdateScreen(MainScreen)
         elif LabelName == "Bordereaux": MainScreen = self.GetMainScreen(Brdx.Bordereaux(self.page, self.Download).ReportingScreen); await self.UpdateScreen(MainScreen)
         elif LabelName == "UserList": MainScreen = self.GetMainScreen(GVL.GUIVariableList(self.page, 'ETLUserData').ReportingScreen); await self.UpdateScreen(MainScreen)     
-        elif LabelName == "System Logs": MainScreen = self.GetMainScreen(Column(controls=[])); await self.UpdateScreen(MainScreen) 
-        elif LabelName == "Administrator": MainScreen = self.GetMainScreen(Column(controls=[])); await self.UpdateScreen(MainScreen) 
+        elif LabelName == "System Logs": MainScreen = self.GetMainScreen(Column(controls=[self.GetDevelopment()])); await self.UpdateScreen(MainScreen) 
+        elif LabelName == "Administrator": MainScreen = self.GetMainScreen(Column(controls=[self.GetDevelopment()])); await self.UpdateScreen(MainScreen) 
         elif LabelName == "Logout": await self.GetBackLoginScreen()
     
     def GetNavButtons(self, IconName:str, LabelName:str):
