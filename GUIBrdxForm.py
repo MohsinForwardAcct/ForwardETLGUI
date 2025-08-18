@@ -80,7 +80,7 @@ class BrdxForm(Container):
 
     async def GetNavigateBack(self, e):
         print(self.MainScreen)
-        if self.MainScreen == 'GUIBrdxForm': self.ReportScreen = BrdxReports.BrdxReports(self.page).ReportingScreen
+        if self.MainScreen == 'GUIBrdxForm': self.ReportScreen = BrdxReports.BrdxReports(self.page, self.Download).ReportingScreen
         self.FormScreen.controls.clear()
         self.FormScreen.controls.append(self.ReportScreen)
         await self.FormScreen.update_async()
