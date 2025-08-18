@@ -13,7 +13,6 @@ class BrdxForm(Container):
         super().__init__()
 
         self.page = page
-        self.user = os.getlogin()
         self.Download = download
         self.ETL = CS.ConnectToETLServer()
         self.ColumnNames = []; self.RowsData = []; self.RowValues = ''
