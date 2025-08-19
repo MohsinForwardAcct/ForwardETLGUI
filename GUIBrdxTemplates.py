@@ -17,7 +17,7 @@ class BrdxTemplates(Container):
         self.Load = CS.LoadDataToODS()
         self.ColumnNames = []; self.RowsData = []; self.RowValues = ''
         self.ScreenName = 'CONIDScreen'; self.ReportTitle = 'Bordereaux Templates'
-        self.Query = f"select distinct CONID, PremiumCategory from RESVBrdxReportTemplates"
+        self.Query = f"select distinct CONID, PremiumCategory from RESVBrdxReportTemplates and Status = 'Activated'"
         self.TableData = pd.DataFrame(self.ODS.qryODSGetData(self.Query)); self.ODS.ODSConnection.close
         self.GetReportScreen()
         self.ReportingScreen = Column(expand=True, controls=[self.ReportScreen])      
