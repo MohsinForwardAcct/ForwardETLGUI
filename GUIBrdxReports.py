@@ -87,7 +87,7 @@ class BrdxReports(Container):
     async def GetScreenChange(self):
         print(self.ColumnSelect, self.ScreenName)
         self.ColumnNames.clear(); self.RowsData.clear()
-        if self.ScreenName == 'MainScreen': self.ReportScreen = Brdx.Bordereaux(self.page).ReportingScreen
+        if self.ScreenName == 'MainScreen': self.ReportScreen = Brdx.Bordereaux(self.page, self.Download).ReportingScreen
         elif self.ScreenName == 'GUIBrdxForm': self.ReportScreen = await GBF.BrdxForm(self.page, self.Download, self.BrdxReport, self.ScreenName, self.ReportTitle).GetBrdxReportScreen()
         else: self.GetReportScreen()
         self.ReportingScreen.controls.clear()
