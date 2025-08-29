@@ -161,13 +161,10 @@ class FormEditScreen(Container):
         await self.GetAlertMessage('Activate Brdx Template','Brdx Template will replace the existing template, to proceed click Yes')
 
     async def GetActivateTemplateAction(self):
-        await self.FormScreen.page.close_dialog_async()
         self.TableData.loc[self.TableData.index,'Status'] = 'Activated'
         query = f"Update RESVBrdxReportTemplates SET Status = 'Deactivated' where CONID = '{self.CONID}' and PremiumCategory = '{self.PremiumCategory}'"
         self.ODS.qryODSAppendData(query)
         CS.LoadDataToODS().LoadDataToODS(self.TableData, 'RESVBrdxReportTemplates')
-        await self.GetFormScreenUpdate()
-
     
     async def GetValidate(self, e):
         Validation1 = 'Fail'; Validation2 = 'Fail'
@@ -208,6 +205,8 @@ class FormEditScreen(Container):
         await self.GetAlertMessage('Delete Line','Delete line will re-arrange the Column Sequence, to proceed click Yes')
 
     async def GetAlertMessageAction(self,e):
+        await self.FormScreen.page.close_dialog_async()
+        await self.GetFormScreenUpdate()
         print(self.ActionCall)
         if self.ActionCall == 'DeleteLine': await self.GetDeleteLineAction()
         elif self.ActionCall == 'ActivateTemplate': await self.GetActivateTemplateAction()
@@ -219,8 +218,6 @@ class FormEditScreen(Container):
             rowline = rows['ColumnSequence']
             self.TableData.loc[self.TableData['ColumnSequence'] == rowline, 'ColumnSequence'] = counter
             counter = counter + 1
-        await self.FormScreen.page.close_dialog_async()
-        await self.GetFormScreenUpdate()
         
     # handle alert dialtog close events 
 
@@ -234,6 +231,7 @@ class FormEditScreen(Container):
                      TextButton("No",on_click=self.GetAlertMessageClose,style=ButtonStyle(shape={"":RoundedRectangleBorder(radius=6)},bgcolor="#AD1457",color="#FAF8F9")),],
             actions_alignment=MainAxisAlignment.END,on_dismiss=[])
         await self.FormScreen.page.show_dialog_async(self.AlertMessage)
+
 
 
 
