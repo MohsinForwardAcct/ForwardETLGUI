@@ -149,14 +149,12 @@ class FormEditScreen(Container):
         await self.GetAlertMessage('Activate Brdx Variables','Brdx Variables will replace the existing Variables, to proceed click Yes')
 
     async def GetActivateTemplateAction(self):
-        await self.FormScreen.page.close_dialog_async()
         self.TableData.loc[self.TableData.index,'Status'] = 'Activated'
         query = f"Update RESVBrdxReportVariables SET Status = 'Deactivated' where CONID = '{self.CONID}' and PremiumCategory = '{self.PremiumCategory}' \
             and ProductCode = '{self.ProductCode}'"
         self.ODS.qryODSAppendData(query)
         self.TableData = self.TableData.drop('UID', axis=1)
         CS.LoadDataToODS().LoadDataToODS(self.TableData, 'RESVBrdxReportVariables')
-        await self.GetFormScreenUpdate()
 
     async def GetValidate(self, e):
         Validation1 = 'Fail'; Validation2 = 'Fail'
@@ -194,6 +192,8 @@ class FormEditScreen(Container):
         await self.FormScreen.update_async()
 
     async def GetAlertMessageAction(self,e):
+        await self.FormScreen.page.close_dialog_async()
+        await self.GetFormScreenUpdate()
         print(self.ActionCall)
         if self.ActionCall == 'DeleteLine': await self.GetDeleteLineAction()
         elif self.ActionCall == 'ActivateVariables': await self.GetActivateTemplateAction()
@@ -205,8 +205,6 @@ class FormEditScreen(Container):
             rowline = rows['ColumnSequence']
             self.TableData.loc[self.TableData['ColumnSequence'] == rowline, 'ColumnSequence'] = counter
             counter = counter + 1
-        await self.FormScreen.page.close_dialog_async()
-        await self.GetFormScreenUpdate()
         
     # handle alert dialtog close events 
 
@@ -220,6 +218,7 @@ class FormEditScreen(Container):
                      TextButton("No",on_click=self.GetAlertMessageClose,style=ButtonStyle(shape={"":RoundedRectangleBorder(radius=6)},bgcolor="#AD1457",color="#FAF8F9")),],
             actions_alignment=MainAxisAlignment.END,on_dismiss=[])
         await self.FormScreen.page.show_dialog_async(self.AlertMessage)
+
 
 
 
