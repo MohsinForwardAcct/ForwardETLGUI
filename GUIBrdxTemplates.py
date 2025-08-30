@@ -47,7 +47,7 @@ class BrdxTemplates(Container):
                 self.CONID = rows.values[0]; self.PremiumCategory = rows.values[1]
                 self.RowsData.append(DataRow(cells=[DataCell(Text(self.CONID, color="wite",size=15)),DataCell(Text(self.PremiumCategory, color="white",size=15)),
                     DataCell(IconButton(icons.REMOVE_RED_EYE_OUTLINED,icon_color='white',data=rows,icon_size=16,on_click=self.GetNavigateFront)),
-                    DataCell(IconButton(icons.DELETE_OUTLINE,icon_color='white',data=[self.CONID, self.PremiumCategory],icon_size=20, on_click=:self.GetAlertMessage))]))  
+                    DataCell(IconButton(icons.DELETE_OUTLINE,icon_color='white',data=[self.CONID, self.PremiumCategory],icon_size=20, on_click=self.GetAlertMessage))]))  
         else:
             for cols in self.TableData.columns.values: self.ColumnNames.append(DataColumn(Text(cols,size=15,color='#AD1457',weight='bold')))
             for index, rows in self.TableData.iterrows():
