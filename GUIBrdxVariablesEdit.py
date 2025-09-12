@@ -22,7 +22,7 @@ class FormEditScreen(Container):
         self.TableData = pd.DataFrame(self.ODS.qryODSGetData(self.Query)); self.ODS.ODSConnection.close
         self.TemplateData = self.TableData.head(1).reset_index(drop=True)
         self.BrdxTemplateID = self.TableData['BrdxTemplateID'].values[0]
-        self.TableData = self.TableData.drop(['Status','BrdxVariableID', 'BrdxTemplateID'], axis=1)
+        if self.ScreenName != 'SelectedProductScreen': self.TableData = self.TableData.drop(['Status','BrdxVariableID', 'BrdxTemplateID'], axis=1)
         self.ProductCode = self.TemplateData['ProductCode'].values[0]
         if self.ScreenName == 'SelectedProductScreen': self.FormatTableData()
         self.FormScreen = Column(expand=True, controls=[])
@@ -205,11 +205,12 @@ class FormEditScreen(Container):
             bgcolor="#AD1457",color="white"))],actions_alignment=MainAxisAlignment.END,on_dismiss=[])
     
     async def GetEditModeOff(self,e):
-        self.ScreenName = 'BrdxVariablesScreen'
-        self.ReportScreen = GF.FormScreen(self.page, self.Download, self.UserName, self.Query, self.ScreenName, self.ReportTitle).GetFormScreen()
-        self.FormScreen.controls.clear()
-        self.FormScreen.controls.append(self.ReportScreen)
-        await self.FormScreen.update_async()
+        if self.ScreenName != 'SelectedProductScreen':
+            self.ScreenName = 'BrdxVariablesScreen'
+            self.ReportScreen = GF.FormScreen(self.page, self.Download, self.UserName, self.Query, self.ScreenName, self.ReportTitle).GetFormScreen()
+            self.FormScreen.controls.clear()
+            self.FormScreen.controls.append(self.ReportScreen)
+            await self.FormScreen.update_async()
 
     async def GetAlertMessageAction(self,e):
         await self.FormScreen.page.close_dialog_async()
@@ -238,6 +239,7 @@ class FormEditScreen(Container):
                      TextButton("No",on_click=self.GetAlertMessageClose,style=ButtonStyle(shape={"":RoundedRectangleBorder(radius=6)},bgcolor="#AD1457",color="#FAF8F9")),],
             actions_alignment=MainAxisAlignment.END,on_dismiss=[])
         await self.FormScreen.page.show_dialog_async(self.AlertMessage)
+
 
 
 
