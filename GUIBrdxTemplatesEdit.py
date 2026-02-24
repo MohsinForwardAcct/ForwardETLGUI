@@ -167,11 +167,13 @@ class FormEditScreen(Container):
         self.TableData.loc[self.TableData.index,'Status'] = 'Activated'
         query = f"Update RESVBrdxReportTemplates SET Status = 'Deactivated' where CONID = '{self.CONID}' and PremiumCategory = '{self.PremiumCategory}'"
         self.ODS.qryODSAppendData(query); self.GetLogReport()
+        self.TableData.loc[self.TableData.index,'BrdxTemplateID'] = self.ReportID
         CS.LoadDataToODS().LoadDataToODS(self.TableData, 'RESVBrdxReportTemplates', 'ODS')
         CS.LoadDataToODS().LoadDataToODS(self.LogFrame, 'SYSLogReports', 'ODS')
 
     def GetLogReport(self):
         self.UserID = self.ODS.qryODSGetData(f"Select UserID from ETLUserData where UserName = '{self.UserName}'")
+        self.ReportID = f"{self.CONID}{self.PremiumCategory[:4]}{self.UserID.values[0]}"
         self.ReportID = self.CONID + self.PremiumCategory[:4] + self.UserID
         print(self.ReportID); input()
         self.LogFrame = pd.DataFrame({'ReportName':'RESVBrdxReportTemplates', 'ReportID':self.ReportID, 'CONID':self.CONID, 'PremiumCategory':self.PremiumCategory,
@@ -242,6 +244,7 @@ class FormEditScreen(Container):
                      TextButton("No",on_click=self.GetAlertMessageClose,style=ButtonStyle(shape={"":RoundedRectangleBorder(radius=6)},bgcolor="#AD1457",color="#FAF8F9")),],
             actions_alignment=MainAxisAlignment.END,on_dismiss=[])
         await self.FormScreen.page.show_dialog_async(self.AlertMessage)
+
 
 
 
