@@ -174,7 +174,6 @@ class FormEditScreen(Container):
     def GetLogReport(self):
         self.UserID = self.ODS.qryODSGetData(f"Select UserID from ETLUserData where UserName = '{self.UserName}'")
         self.ReportID = f"{self.CONID}{self.PremiumCategory[:4]}{self.UserID.values[0]}"
-        self.ReportID = self.CONID + self.PremiumCategory[:4] + self.UserID
         print(self.ReportID); input()
         self.LogFrame = pd.DataFrame({'ReportName':'RESVBrdxReportTemplates', 'ReportID':self.ReportID, 'CONID':self.CONID, 'PremiumCategory':self.PremiumCategory,
                                  'UserName':self.UserName, 'TimeStamp':self.TimeStamp},index=[0])
@@ -251,3 +250,4 @@ class FormEditScreen(Container):
 
 
         
+
