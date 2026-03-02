@@ -163,7 +163,8 @@ class BrdxTemplates(Container):
     # build brdx template CONID query
 
     def GetCONID(self):
-        self.Query = f"Select * from RESVBrdxReportTemplates where CONID = '{self.CONID}' and Status = 'Activated' order by ColumnSequence"
+        self.Query = f"Select * from RESVBrdxReportTemplates where CONID = '{self.CONID}' and PremiumCategory = '{self.PremiumCategory}' \
+            and Status = 'Activated' order by ColumnSequence"
         self.ScreenName = 'BrdxTemplates'; self.ReportTitle = f"{self.CONID} - Bordereaux Template"
 
     # build brdx templete premium category query 
