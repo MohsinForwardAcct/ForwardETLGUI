@@ -184,6 +184,7 @@ class BrdxVariables(Container):
 
     def GetSelectProduct(self):
         print(self.CONID, self.ProductCode)
-        self.Query = f"Select *, '' as ProductCode, '' as TableName, '' as Variables from RESVBrdxReportTemplates where CONID = '{self.CONID}' and Status = 'Activated'"
+        self.Query = f"Select *, '' as ProductCode, '' as TableName, '' as Variables from RESVBrdxReportTemplates where CONID = '{self.CONID}' \
+            and PremiumCategory = '{self.PremiumCategory}' and Status = 'Activated' order by ColumnSequence"
         self.ScreenName = 'SelectedProductScreen';  self.ReportTitle = f"{self.CONID} - {self.ProductCode} - Bordereaux Variables"
 
